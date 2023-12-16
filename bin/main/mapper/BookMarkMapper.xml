@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="basic.domain.bookmark.BookMarkMapper">
+	<insert id="addBookMark" parameterType="basic.domain.tourAPI.DTO.TourSpotDTO">
+		INSERT INTO bookmark_table(contentid, firstimage, addr1, name, title) 
+		VALUES(#{contentid}, #{firstimage}, #{addr1}, #{name}, #{title})
+	</insert>
+	<delete id="deleteBookMark" parameterType="basic.domain.bookmark.BookMarkDTO">
+		DELETE FROM bookmark_table WHERE contentid = #{contentid} AND name = #{name}
+	</delete>
+	<select id="isCheck" parameterType="basic.domain.bookmark.BookMarkDTO" resultType="Integer">
+		SELECT * FROM bookmark_table WHERE contentid = #{contentid} AND name = #{name}
+	</select>
+	<select id="getBookMarkList" parameterType="String" resultType="basic.domain.tourAPI.DTO.TourSpotDTO">
+		SELECT * FROM bookmark_table WHERE name = #{name}
+	</select>
+</mapper>

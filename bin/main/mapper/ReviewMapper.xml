@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="basic.domain.review.ReviewMapper">
+	<select id="getLastNo" resultType="int">
+		SELECT MAX(reviewNo) FROM review_table WHERE available = 1
+	</select>
+	<select id="getReviewCnt" resultType="int">
+		SELECT COUNT(reviewNo) FROM review_table WHERE available = 1
+	</select>
+	
+	<select id="getReviewList1" parameterType="String" resultType="basic.domain.review.ReviewDTO">
+		SELECT * FROM review_table WHERE available = 1 AND title LIKE CONCAT('%', #{searchIt}, '%') ORDER BY reviewNo DESC
+	</select>
+	<select id="getReviewList2" parameterType="String" resultType="basic.domain.review.ReviewDTO">
+		SELECT * FROM review_table WHERE available = 1 AND content LIKE CONCAT('%', #{searchIt}, '%') ORDER BY reviewNo DESC
+	</select>
+	<select id="getReviewList3" parameterType="String" resultType="basic.domain.review.ReviewDTO">
+		SELECT * FROM review_table WHERE available = 1 AND (title LIKE CONCAT('%', #{searchIt}, '%') OR content LIKE CONCAT('%', #{searchIt}, '%')) ORDER BY reviewNo DESC
+	</select>
+	<select id="getReviewList4" parameterType="int" resultType="basic.domain.review.ReviewDTO">
+		SELECT * FROM review_table WHERE available = 1 ORDER BY reviewNo DESC LIMIT #{page}, 10
+	</select>
+	
+	<select id="getReviewDetail" parameterType="int" resultType="basic.domain.review.ReviewDTO">
+		SELECT A.*, COUNT(B.name) AS likeC FROM review_table AS A LEFT JOIN review_likeC_table AS B 
+		ON A.reviewNo = B.reviewNo WHERE A.reviewNo = #{reviewNo} AND A.available = 1 GROUP BY A.reviewNo
+	</select>
+	<insert id="addReview" parameterType="basic.domain.review.ReviewDTO">
+		INSERT INTO review_table(name, title, region, content, img) 
+		VALUES(#{name}, #{title}, #{region}, #{content}, #{img})
+	</insert>
+	<update id="deleteReview" parameterType="int">
+		UPDATE review_table SET available = 0 WHERE reviewNo = #{reviewNo}
+	</update>
+	<update id="editReview" parameterType="basic.domain.review.ReviewDTO">
+		UPDATE review_table SET title = #{title}, region = #{region}, content = #{content} WHERE reviewNo = #{reviewNo}
+	</update>
+
+	<update id="addView" parameterType="int">
+		UPDATE review_table SET viewC = viewC + 1 WHERE reviewNo = #{reviewNo}
+	</update>
+
+	<insert id="addReviewComment" parameterType="basic.domain.review.CommentDTO">
+		INSERT INTO review_comment_table(reviewNo, name, content) 
+		VALUES(#{reviewNo}, #{name}, #{content})
+	</insert>
+	<update id="deleteReviewComment" parameterType="int">
+		UPDATE review_comment_table SET available = 0 WHERE commentNo = #{commentNo}
+	</update>
+	<select id="getCommentList" parameterType="int" resultType="basic.domain.review.CommentDTO">
+		SELECT * FROM review_comment_table WHERE reviewNo = #{reviewNo} AND available = 1
+	</select>
+	<select id="getComment" parameterType="int" resultType="basic.domain.review.CommentDTO">
+		SELECT * FROM review_comment_table WHERE commentNo = #{commentNo} AND available = 1
+	</select>
+	
+	<insert id="addReviewLike" parameterType="basic.domain.review.ReviewDTO">
+		INSERT INTO review_likeC_table(reviewNo, name) 
+		VALUES(#{reviewNo}, #{name})
+	</insert>
+	<delete id="deleteReviewLike" parameterType="basic.domain.review.ReviewDTO">
+		DELETE FROM review_likeC_table WHERE reviewNo = #{reviewNo} AND name = #{name}
+	</delete>
+	<select id="isLike" parameterType="basic.domain.review.ReviewDTO" resultType="Integer">
+		SELECT * FROM review_likeC_table WHERE reviewNo = #{reviewNo} AND name = #{name}
+	</select>
+	<select id="getLikeCnt" parameterType="int" resultType="int">
+		SELECT COUNT(*) FROM review_likeC_table WHERE reviewNo = #{reviewNo}
+	</select>
+</mapper>
