@@ -61,7 +61,7 @@ public class ReviewService {
 			}
 
 			// 파일 경로 DTO에 저장
-			reviewDTO.setImg(newFileName);
+			reviewDTO.setImg("/assets/img/reviewIMG/" + newFileName);
 		} 
 
 		// 리뷰 만들기

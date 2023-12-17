@@ -136,7 +136,7 @@ public class ApiService {
 	public ArrayList<TourSpotDTO> getTourMap(double x, double y, int pageNo) {
 		StringBuilder sb = new StringBuilder();
 		sb.append("/locationBasedList1");
-		sb.append("?radius=5000");
+		sb.append("?radius=3000");
 		sb.append("&listYN=Y");
 		sb.append("&arrange=O");
 		sb.append("&contentTypeId=12");

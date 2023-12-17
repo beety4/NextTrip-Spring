@@ -43,7 +43,7 @@
 			var options = {
 					//center: new kakao.maps.LatLng(37.44913, 126.6572),
 					center : new kakao.maps.LatLng(37.44913, 126.6572),
-					level : 8
+					level : 7
 			};
 			
 			// 지도 생성

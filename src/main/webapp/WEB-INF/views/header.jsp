@@ -51,10 +51,9 @@
           <div class="collapse navbar-collapse border-top border-lg-0 mt-4 mt-lg-0" id="navbarSupportedContent">
             <ul class="navbar-nav ms-auto pt-2 pt-lg-0 font-base align-items-lg-center align-items-start">
               <li class="nav-item px-3 px-xl-4"><a class="nav-link fw-medium" aria-current="page" href="/index.do#service">소개</a></li>
-              <li class="nav-item px-3 px-xl-4"><a class="nav-link fw-medium" aria-current="page" href="/showTourSpot.do">여행지</a></li>
+              <li class="nav-item px-3 px-xl-4"><a class="nav-link fw-medium" aria-current="page" href="/showTourSpot.do">관광지</a></li>
               <li class="nav-item px-3 px-xl-4"><a class="nav-link fw-medium" aria-current="page" href="/tripReview.do?pageNo=1">여행후기</a></li>
-              <li class="nav-item px-3 px-xl-4"><a class="nav-link fw-medium" aria-current="page" href="/bookmark.do">북마크</a></li>
-              <li class="nav-item px-3 px-xl-4"><a class="nav-link fw-medium" aria-current="page" href="/myTrip.do">내 근처</a></li>
+              <li class="nav-item px-3 px-xl-4"><a class="nav-link fw-medium" aria-current="page" href="/myTrip.do">근처 관광지</a></li>
               
               
               <sec:authorize access="isAuthenticated()">
@@ -70,7 +69,8 @@
               	<img src="<%=img %>" width="30px;">
              	 </a>
                 	<ul class="dropdown-menu dropdown-menu-end border-0 shadow-lg" style="border-radius:0.3rem;" aria-labelledby="navbarDropdown">
-                  	<li><a class="dropdown-item" href="myProfile.do">내 정보</a></li>
+                  	<li><a class="dropdown-item" href="/myProfile.do">내 정보</a></li>
+                  	<li><a class="dropdown-item" href="/bookmark.do">내 관광지</a></li>
                   	<li><a class="dropdown-item" href="logout">로그아웃</a></li>
                 	</ul>
               	</li>

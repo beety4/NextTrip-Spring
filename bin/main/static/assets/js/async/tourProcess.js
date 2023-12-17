@@ -64,11 +64,11 @@ function writeMarker(myArr) {
 		});
 		
 		var iwContent = '<div style="padding:5px;">' + myArr[i][0] + '</div>';
-   		var iwPosition = new kakao.maps.LatLng(33.450701, 126.570667);
+   		var iwPosition = new kakao.maps.LatLng(myArr[i][6], myArr[i][5]);
     	var iwRemoveable = true;
 		
 		var infowindow = new kakao.maps.InfoWindow({
-			map: map,
+			//map: map,
 			position: iwPosition,
 			content: iwContent,
 			removable: iwRemoveable
@@ -82,13 +82,14 @@ function writeMarker(myArr) {
 	}
 }
 
-
+// 마우스 호버 이벤트
 function makeOverListener(map, marker, infowindow) {
     return function() {
         infowindow.open(map, marker);
     };
 }
 
+// 마우스 아웃 이벤트
 function makeOutListener(infowindow) {
     return function() {
         infowindow.close();
@@ -96,6 +97,7 @@ function makeOutListener(infowindow) {
 }
 
 
+// 마커 세팅 이벤트 - null 입력 시 초기화
 function setMarkers(map) {
     for (var i=0; i < markers.length; i++) {
         markers[i].setMap(map);
@@ -103,6 +105,7 @@ function setMarkers(map) {
 }
 
 
+// 페이지 업 다운
 function pageup() {
 	getContent(nowx, nowy, nowPage + 1);
 	nowPage = nowPage + 1;
